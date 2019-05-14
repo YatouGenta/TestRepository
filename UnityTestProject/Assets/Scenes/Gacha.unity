@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1562eb4f975c7dc4fae84c3c5dc09d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterData: {fileID: 11400000, guid: 0d058b4e3a1185845a303b502554b25f, type: 2}
   pointText: {fileID: 992396369}
   addPoint: 1000
   gatyaPoint: 100

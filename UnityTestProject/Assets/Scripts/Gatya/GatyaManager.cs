@@ -8,6 +8,10 @@ using UnityEngine.UI;
 /// </summary>
 public class GatyaManager : MonoBehaviour
 {
+    // ガチャのマスターデータ
+    [SerializeField]
+    private GatyaMasterData masterData;
+
     //保存データ
     private GatyaUserData userData;
 
@@ -67,9 +71,17 @@ public class GatyaManager : MonoBehaviour
             pointText.text = userData.point.ToString();
             ClassDataFomater.Seialize<GatyaUserData>(UnityEngine.Application.persistentDataPath + "/GatyaData", userData);
 
+            List<float> lotList = new List<float>();
+            for(int i = 0; i < masterData.sheets[0].list.Count; i++)
+            {
+                lotList.Add(masterData.sheets[0].list[i].probability);
+            }
+            int id = LotterySystem.Lottery(lotList);
+            GatyaMasterData.Param targetParam = masterData.GetGatyaMasterParam(id);
+
             TwoButtonDialogData data = new TwoButtonDialogData();
             data.title = "ガチャを引きました";
-            data.content = addPoint + " 処理はまだ作ってないよ";
+            data.content = targetParam.Rarity +"レアの" + targetParam.itemName + "\n";
             StartCoroutine(DialogManager.instance.DialogShow(DialogSelector.DialogType.TwoButtonDialog, data));
         }
 
